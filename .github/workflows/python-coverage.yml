@@ -36,8 +36,9 @@ jobs:
       - uses: actions/cache@v4
         with:
           path: ~/venv
-          key: venv-${{ runner.os }}-${{ hashFiles('**/venv/requirements.txt) }}
+          key: venv-${{ runner.os }}-${{ hashFiles('**/venv/requirements.txt' }}
           restore-keys: env-${{ runner.os }}-
+
       - name: Run tests and generate coverage details
         run: pytest --cov=src
 
