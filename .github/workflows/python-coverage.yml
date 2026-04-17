@@ -24,6 +24,7 @@ jobs:
       - name: Set up venv
         run: |
           python -m venv venv
+          cp requirements.txt venv/requirements.txt
 
       - uses: actions/cache@v4
         with:
@@ -34,10 +35,6 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-          pip install pytest==8.4.1
-          pip install coverage==7.9
-          pip install pytest-cov==6.2.1
-          pip freeze > venv/requirements.txt
 
 
       - name: Run tests and generate coverage details
