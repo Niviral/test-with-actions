@@ -25,6 +25,12 @@ jobs:
         run: |
           python -m venv venv
 
+      - uses: actions/cache@v4
+        with:
+          path: ~/venv
+          key: venv-${{ runner.os }}-${{ hashFiles('**/venv/requirements.txt') }}
+          restore-keys: env-${{ runner.os }}-
+
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
@@ -32,11 +38,7 @@ jobs:
           pip install coverage==7.9
           pip install pytest-cov==6.2.1
           pip freeze > venv/requirements.txt
-      - uses: actions/cache@v4
-        with:
-          path: ~/venv
-          key: venv-${{ runner.os }}-${{ hashFiles('**/venv/requirements.txt') }}
-          restore-keys: env-${{ runner.os }}-
+
 
       - name: Run tests and generate coverage details
         run: pytest --cov=src
